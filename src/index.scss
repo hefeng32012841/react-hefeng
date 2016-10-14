@@ -1,0 +1,13 @@
+html, body {
+	margin: 0;
+}
+
+.main {
+	height: 100%;
+
+	@at-root {
+		.wrapper {
+			height: 100%;
+		}
+	}
+}

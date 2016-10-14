@@ -1,0 +1,45 @@
+{
+  "name": "webapp",
+  "version": "1.0.0",
+  "description": "my webapp",
+  "main": "index.js",
+  "scripts": {
+    "dist": "set NODE_ENV=dist && webpack -p"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hefeng32012841/react-hefeng.git"
+  },
+  "keywords": [
+    "react",
+    "webpack",
+    "gulp"
+  ],
+  "author": "hefeng",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hefeng32012841/react-hefeng/issues"
+  },
+  "homepage": "https://github.com/hefeng32012841/react-hefeng#readme",
+  "devDependencies": {
+    "autoprefixer-loader": "^3.2.0",
+    "babel-core": "^6.17.0",
+    "babel-loader": "^6.2.5",
+    "bell-on-bundler-error-plugin": "^1.0.8",
+    "css-loader": "^0.25.0",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.9.0",
+    "gulp": "^3.9.1",
+    "gulp-connect": "^5.0.0",
+    "html-webpack-plugin": "^2.22.0",
+    "node-gyp": "^3.4.0",
+    "node-sass": "^3.10.1",
+    "open": "0.0.5",
+    "postcss": "^5.2.4",
+    "sass-loader": "^4.0.2",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.16.2"
+  }
+}
