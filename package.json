@@ -4,7 +4,7 @@
   "description": "my webapp",
   "main": "index.js",
   "scripts": {
-    "dist": "set NODE_ENV=dist && webpack -p"
+    "build-dist": "webpack -p --env=dist"
   },
   "repository": {
     "type": "git",

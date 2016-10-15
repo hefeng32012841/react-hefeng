@@ -6,10 +6,15 @@
  */
 'use strict';
 
-const base = require('./base');
+const config = require('./config');
+const Base = require('./base');
 // const util = require('./util');
 // const config = util.config;
-base.config = false;
+
+config.debug = false;
+
+var base = new Base(config);
+
 var distConfig = Object.assign({}, base.webpackConfig, {
     devtool: false
 });

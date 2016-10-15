@@ -4,7 +4,7 @@ const args = require('minimist')(process.argv.slice(2));
 const path = require('path');
 
 var env = '';
-if (args.dist) {
+if (args.env === 'dist') {
     env = 'dist';
 }
 else {

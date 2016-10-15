@@ -12,21 +12,11 @@ const BellOnBundlerErrorPlugin = require('bell-on-bundler-error-plugin');
 const HtmlWebpackPlugn = require('html-webpack-plugin');
 
 const util = require('./util');
-const config = util.config;
+const utilConfig = util.config;
 const pagers = util.getPager();
-
-let base = {
-    config: true
-};
 
 var webpackConfig = {
     entry: pagers.jsEntries,
-    output: {
-        path: config.dist,
-        filename: base.debug ? '[name].min.js' : 'js/[name].min.js',
-        publicPath: './',
-        chunkFilename: base.debug ? 'chunk.js' : 'js/chunk.js'
-    },
     module: {
         preLoaders: [],
         loaders: [
@@ -49,15 +39,15 @@ var webpackConfig = {
         ]
     },
     resolve: {
-        root: [config.src, '/node_modules'],
+        root: [utilConfig.src, '/node_modules'],
         extensions: ['', '.js', '.jsx', '.html']
     },
     plugins: [
 
         // 生成css文件，非内联
-        new ExtractCssPlugin(base.debug ? '[name].min.css' : 'css/[name].min.css', {
-            allChunks: true
-        }),
+        // new ExtractCssPlugin(base.debug ? '[name].min.css' : 'css/[name].min.css', {
+        //     allChunks: true
+        // }),
 
         // 打印构建打包时的出错信息
         new BellOnBundlerErrorPlugin(),
@@ -85,9 +75,24 @@ var webpackConfig = {
     ]
 };
 
-var commonChunks = util.getCommonChunks(pagers.allChunks);
-webpackConfig.plugins = webpackConfig.plugins.concat(pagers.htmlPlugins, commonChunks);
+function Base(config) {
+    webpackConfig = Object.assign({}, webpackConfig, {
+        output: {
+            path: utilConfig.dist,
+            filename: config.debug ? '[name].min.js' : 'js/[name].min.js',
+            publicPath: './',
+            chunkFilename: config.debug ? 'chunk.js' : 'js/chunk.js'
+        },
+    });
+    var commonChunks = util.getCommonChunks(pagers.allChunks);
+    webpackConfig.plugins = webpackConfig.plugins.concat(pagers.htmlPlugins, commonChunks);
+    webpackConfig.plugins.push(
+        new ExtractCssPlugin(config.debug ? '[name].min.css' : 'css/[name].min.css', {
+            allChunks: true
+        })
+    );
 
-base.webpackConfig = webpackConfig;
+    this.webpackConfig = webpackConfig;
+}
 
-module.exports = base;
+module.exports = Base;

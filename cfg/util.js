@@ -11,11 +11,13 @@ const path = require('path');
 const HtmlWebpackPlgin = require('html-webpack-plugin');
 var webpack = require('webpack');
 
+var config = {
+    dist: path.join(__dirname, '/../dist'),
+    src: path.join(__dirname, '/../src')
+};
+
 var util = {
-    config: {
-        dist: path.join(__dirname, '/../dist'),
-        src: path.join(__dirname, '/../src')
-    },
+    config: config,
 
     /**
      * 获取统一的文件名和加后缀的文件的对象
@@ -71,7 +73,7 @@ var util = {
 
             var page = me.file(filename);
             if (page.name in jsFiles) {
-                var conf = {
+                let conf = {
                     filename: page.path,
                     template: filename,
                     chunks: ['common', page.name],
