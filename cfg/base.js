@@ -13,14 +13,19 @@ const HtmlWebpackPlugn = require('html-webpack-plugin');
 
 const util = require('./util');
 const config = util.config;
+const pagers = util.getPager();
+
+let base = {
+    config: true
+};
 
 var webpackConfig = {
-    entry: util.getEntries(),
+    entry: pagers.jsEntries,
     output: {
         path: config.dist,
-        filename: '[name].min.js',
+        filename: base.debug ? '[name].min.js' : 'js/[name].min.js',
         publicPath: './',
-        chunkFilename: 'chunk.js'
+        chunkFilename: base.debug ? 'chunk.js' : 'js/chunk.js'
     },
     module: {
         preLoaders: [],
@@ -50,7 +55,7 @@ var webpackConfig = {
     plugins: [
 
         // 生成css文件，非内联
-        new ExtractCssPlugin('[name].min.css', {
+        new ExtractCssPlugin(base.debug ? '[name].min.css' : 'css/[name].min.css', {
             allChunks: true
         }),
 
@@ -77,7 +82,12 @@ var webpackConfig = {
 
         // 是为组件和模块分配ID，通过这个插件webpack可以分析和优先考虑使用最多的模块，并为它们分配最小的ID，通过分析ID，可以建议降低总文件的大小。
         new webpack.optimize.OccurenceOrderPlugin()
-    ].concat(util.getHtmlPlugin())
+    ]
 };
 
-module.exports = webpackConfig;
+var commonChunks = util.getCommonChunks(pagers.allChunks);
+webpackConfig.plugins = webpackConfig.plugins.concat(pagers.htmlPlugins, commonChunks);
+
+base.webpackConfig = webpackConfig;
+
+module.exports = base;

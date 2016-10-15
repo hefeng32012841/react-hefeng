@@ -32,8 +32,8 @@ gulp.task('dev', () => {
             console.log(err);
         }
         console.log('------dev server start-------');
-        // open('http://localhost:9000/webpack-dev-server/');
-        open('http://localhost:9000');
+        open('http://localhost:9000/webpack-dev-server/');
+        // open('http://localhost:9000');
     });
 });
 

@@ -6,12 +6,12 @@
  */
 'use strict';
 
-var baseConfig = require('./base');
-
-var distConfig = {
+const base = require('./base');
+// const util = require('./util');
+// const config = util.config;
+base.config = false;
+var distConfig = Object.assign({}, base.webpackConfig, {
     devtool: false
-};
+});
 
-Object.assign(baseConfig, distConfig);
-
-module.exports = baseConfig;
+module.exports = distConfig;

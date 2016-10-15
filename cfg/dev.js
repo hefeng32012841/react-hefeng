@@ -6,14 +6,15 @@
  */
 'use strict';
 
-var baseConfig = require('./base');
+const base = require('./base');
+// const util = require('./util');
+// const config = util.config;
+base.debug = true;
 
-var devConfig = {
+var devConfig = Object.assign({}, base.webpackConfig, {
     devtool: 'eval-source-map'
-};
+});
 
-Object.assign(baseConfig, devConfig);
+devConfig.entry.index = [devConfig.entry.index, "webpack-dev-server/client?http://localhost:9000", "webpack/hot/only-dev-server"];
 
-// baseConfig.entry.index = [baseConfig.entry.index, "webpack-dev-server/client?http://localhost:9000", "webpack/hot/only-dev-server"];
-
-module.exports = baseConfig;
+module.exports = devConfig;
