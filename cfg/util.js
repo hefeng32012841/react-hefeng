@@ -7,14 +7,9 @@
 'use strict';
 
 const glob = require('glob');
-const path = require('path');
 const HtmlWebpackPlgin = require('html-webpack-plugin');
-var webpack = require('webpack');
-
-var config = {
-    dist: path.join(__dirname, '/../dist'),
-    src: path.join(__dirname, '/../src')
-};
+const webpack = require('webpack');
+const config = require('./config');
 
 var util = {
     config: config,

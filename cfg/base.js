@@ -12,7 +12,6 @@ const BellOnBundlerErrorPlugin = require('bell-on-bundler-error-plugin');
 const HtmlWebpackPlugn = require('html-webpack-plugin');
 
 const util = require('./util');
-const utilConfig = util.config;
 const pagers = util.getPager();
 
 var webpackConfig = {
@@ -39,7 +38,7 @@ var webpackConfig = {
         ]
     },
     resolve: {
-        root: [utilConfig.src, '/node_modules'],
+        root: ['/node_modules'],
         extensions: ['', '.js', '.jsx', '.html']
     },
     plugins: [
@@ -78,7 +77,7 @@ var webpackConfig = {
 function Base(config) {
     webpackConfig = Object.assign({}, webpackConfig, {
         output: {
-            path: utilConfig.dist,
+            path: config.dist,
             filename: config.debug ? '[name].min.js' : 'js/[name].min.js',
             publicPath: './',
             chunkFilename: config.debug ? 'chunk.js' : 'js/chunk.js'
@@ -91,6 +90,8 @@ function Base(config) {
             allChunks: true
         })
     );
+
+    webpackConfig.resolve.root.push(config.src);
 
     this.webpackConfig = webpackConfig;
 }

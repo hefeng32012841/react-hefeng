@@ -7,8 +7,19 @@
 
 'use strict';
 
+var path = require('path');
+
 var config = {
-    debug: true
+    debug: true,
+
+    port: 9000,
+
+    host: 'localhost',
+
+    https: true,
+
+    dist: path.join(__dirname, '/../dist'),
+    src: path.join(__dirname, '/../src')
 };
 
 module.exports = config;
