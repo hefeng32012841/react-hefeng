@@ -67,4 +67,7 @@ gulp.task('test', () => {
             }
         }
     );
+
+    var proxy = config.https ? 'https://' : 'http://';
+    open(proxy + config.host + ':' + config.port);
 });

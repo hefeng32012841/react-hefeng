@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build-dist": "gulp clean && webpack -p --env=dist",
-    "test": "gulp test --env=dist"
+    "test": "gulp clean && gulp test --env=dist"
   },
   "repository": {
     "type": "git",
