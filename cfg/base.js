@@ -33,7 +33,7 @@ var webpackConfig = {
             },
             {
                 test: /\.(js|jsx)$/,
-                loader: 'babel-loader'
+                loader: 'react-hot-loader!babel-loader'
             }
         ]
     },
