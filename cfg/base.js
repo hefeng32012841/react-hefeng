@@ -6,15 +6,20 @@
  */
 'use strict';
 
+// import webpack from 'webpack';
+// import ExtractCssPlugin from 'extract-text-webpack-plugin';
+// import BellOnBundlerErrorPlugin from 'bell-on-bundler-error-plugin';
+// import HtmlWebpackPlugn from 'html-webpack-plugin';
 const webpack = require('webpack');
 const ExtractCssPlugin = require('extract-text-webpack-plugin');
 const BellOnBundlerErrorPlugin = require('bell-on-bundler-error-plugin');
 const HtmlWebpackPlugn = require('html-webpack-plugin');
 
+// import util from './util';
 const util = require('./util');
 const pagers = util.getPager();
 
-var webpackConfig = {
+const webpackBaseConfig = {
     entry: pagers.jsEntries,
     module: {
         preLoaders: [],
@@ -33,9 +38,11 @@ var webpackConfig = {
             },
             {
                 test: /\.(js|jsx)$/,
-                loader: 'react-hot-loader!babel-loader'
+                loader: 'babel-loader'
             }
-        ]
+        ],
+
+        noParse: ['normalize.css']
     },
     resolve: {
         root: ['/node_modules'],
@@ -74,26 +81,30 @@ var webpackConfig = {
     ]
 };
 
-function Base(config) {
-    webpackConfig = Object.assign({}, webpackConfig, {
-        output: {
-            path: config.dist,
-            filename: config.debug ? '[name].min.js' : 'js/[name].min.js',
-            publicPath: './',
-            chunkFilename: config.debug ? 'chunk.js' : 'js/chunk.js'
-        },
-    });
-    var commonChunks = util.getCommonChunks(pagers.allChunks);
-    webpackConfig.plugins = webpackConfig.plugins.concat(pagers.htmlPlugins, commonChunks);
-    webpackConfig.plugins.push(
-        new ExtractCssPlugin(config.debug ? '[name].min.css' : 'css/[name].min.css', {
-            allChunks: true
-        })
-    );
+class Base {
+    constructor(config) {
+        let webpackConfig = Object.assign({}, webpackBaseConfig, {
+            output: {
+                path: config.dist,
+                filename: config.debug ? '[name].min.js' : 'js/[name].min.js',
+                publicPath: './',
+                chunkFilename: config.debug ? 'chunk.js' : 'js/chunk.js'
+            },
+        });
+        let commonChunks = util.getCommonChunks(pagers.allChunks);
+        webpackConfig.plugins = webpackConfig.plugins.concat(pagers.htmlPlugins, commonChunks);
+        webpackConfig.plugins.push(
+            new ExtractCssPlugin(config.debug ? '[name].min.css' : 'css/[name].min.css', {
+                allChunks: true
+            })
+        );
 
-    webpackConfig.resolve.root.push(config.src);
+        webpackConfig.resolve.root.push(config.src);
 
-    this.webpackConfig = webpackConfig;
+        this.webpackConfig = webpackConfig;
+    }
 }
 
 module.exports = Base;
+
+// export default Base;

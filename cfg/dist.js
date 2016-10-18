@@ -6,17 +6,20 @@
  */
 'use strict';
 
+// import config from './config';
+// import Base from './base';
 const config = require('./config');
 const Base = require('./base');
 // const util = require('./util');
-// const config = util.config;
 
 config.debug = false;
 
-var base = new Base(config);
+const base = new Base(config);
 
-var distConfig = Object.assign({}, base.webpackConfig, {
+const distConfig = Object.assign({}, base.webpackConfig, {
     devtool: false
 });
 
 module.exports = distConfig;
+
+// export default distConfig;

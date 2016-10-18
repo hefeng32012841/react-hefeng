@@ -1,5 +1,18 @@
+/**
+ * @file gulpfile.js
+ * @author hefeng
+ *
+ */
 'use strict';
 
+// import gulp from 'gulp';
+// import webpack from 'webpack';
+// import devServer from 'webpack-dev-server';
+// import webpackConfig from './webpack.config';
+// import open from 'open';
+// import clean from 'clean';
+// import connect from 'gulp-connect';
+// import config from './cfg/config';
 const gulp = require('gulp');
 const webpack = require('webpack');
 const devServer = require('webpack-dev-server');
@@ -10,9 +23,9 @@ const clean = require('gulp-clean');
 const connect = require('gulp-connect');
 const config = require('./cfg/config');
 
-var complier = webpack(webpackConfig);
+const complier = webpack(webpackConfig);
 
-var devConfig = {
+const devConfig = {
     contentBase: './src/',
     publicPath: '/',
     port: config.port,
@@ -30,14 +43,14 @@ var devConfig = {
 
 // 开发环境, 启动webpack-dev-server
 gulp.task('dev', () => {
-    var server = new devServer(complier, devConfig);
+    const server = new devServer(complier, devConfig);
     server.listen(config.port, config.host, (err) => {
         if (err) {
             console.log(err);
         }
         console.log('------dev server start-------');
         // open('http://localhost:9000/webpack-dev-server/');
-        var proxy = config.https ? 'https://' : 'http://';
+        const proxy = config.https ? 'https://' : 'http://';
         open(proxy + config.host + ':' + config.port);
     });
 });
@@ -68,6 +81,6 @@ gulp.task('test', () => {
         }
     );
 
-    var proxy = config.https ? 'https://' : 'http://';
+    const proxy = config.https ? 'https://' : 'http://';
     open(proxy + config.host + ':' + config.port);
 });

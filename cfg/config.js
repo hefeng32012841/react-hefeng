@@ -7,9 +7,10 @@
 
 'use strict';
 
-var path = require('path');
+// import path from 'path';
+const path = require('path');
 
-var config = {
+const config = {
     debug: true,
 
     port: 9000,
@@ -23,3 +24,5 @@ var config = {
 };
 
 module.exports = config;
+
+// export default config;

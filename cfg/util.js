@@ -6,13 +6,16 @@
  */
 'use strict';
 
+// import glob from 'glob';
+// import HtmlWebpackPlgin from 'html-webpack-plugin';
+// import webpack from 'webpack';
+// import config from './config';
 const glob = require('glob');
 const HtmlWebpackPlgin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const config = require('./config');
 
-var util = {
-    config: config,
+const util = {
 
     /**
      * 获取统一的文件名和加后缀的文件的对象
@@ -24,9 +27,9 @@ var util = {
         if (!filename) {
             return;
         }
-        var fileNameChunks = filename.split('/');
-        var len = fileNameChunks.length;
-        var name = fileNameChunks[len - 1];
+        let fileNameChunks = filename.split('/');
+        let len = fileNameChunks.length;
+        let name = fileNameChunks[len - 1];
         name = name.substring(0, name.indexOf('.'));
 
         return {
@@ -41,12 +44,12 @@ var util = {
      * return {Object}, 所有的js文件的键值对，文件名:路径
      */
     getFiles: function () {
-        var me = this;
-        var pages = glob.sync(me.config.src + '**/*.js');
-        var jsFiles = {};
+        const me = this;
+        const pages = glob.sync(config.src + '**/*.js');
+        const jsFiles = {};
         pages.forEach((filename) => {
 
-            var page = me.file(filename);
+            let page = me.file(filename);
             jsFiles[page.name] = filename;
         });
 
@@ -58,15 +61,15 @@ var util = {
      *
      */
     getPager: function () {
-        var me = this;
-        var jsFiles = me.getFiles();
-        var pages = glob.sync(me.config.src + '**/*.html');
-        var htmlPlugins = [];
-        var jsEntries = {};
-        var allChunks = [];
+        const me = this;
+        const jsFiles = me.getFiles();
+        const pages = glob.sync(config.src + '**/*.html');
+        const htmlPlugins = [];
+        const jsEntries = {};
+        const allChunks = [];
         pages.forEach((filename) => {
 
-            var page = me.file(filename);
+            let page = me.file(filename);
             if (page.name in jsFiles) {
                 let conf = {
                     filename: page.path,
@@ -98,7 +101,7 @@ var util = {
             return;
         }
 
-        var common = [
+        const common = [
             new webpack.optimize.CommonsChunkPlugin({
 
                 // 生成的公共部分的js文件名
@@ -114,3 +117,5 @@ var util = {
 };
 
 module.exports = util;
+
+// export default util;
